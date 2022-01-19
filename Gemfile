@@ -42,6 +42,8 @@ group :development, :test do
 
   # Use RSpec as test framework
   gem "rspec-rails", "~> 5.0.0"
+
+  gem "byebug"
 end
 
 group :development do
