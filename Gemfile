@@ -59,3 +59,8 @@ group :test do
   gem "simplecov"
   gem "simplecov-console"
 end
+
+group :production do
+  # Use PostgreSQL in production in Heroku
+  gem "pg"
+end
