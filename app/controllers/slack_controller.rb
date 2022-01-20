@@ -1,36 +1,39 @@
 class SlackController < ApplicationController
+
+  before_action :verify_slack_signature
+
   def events
-    if params[:slack][:type] == "app_mention"
+    if params[:slack][:type] == "url_verification"
+      render plain: params.require(:slack).permit(:challenge)[:challenge]
+    elsif params[:slack][:type] == "app_mention"
       render plain: "Authentication successful"
-     
     else
-      render plain: "Hello World"
+      render plain: ""
     end  
   end
+
+  private
+
+  def verify_slack_signature
+    signing_secret = ENV['SLACK_SIGNING_SECRET']
+    version_number = 'v0'
+    timestamp = request.headers['X-Slack-Request-Timestamp']
+    raw_body = request.body.read
+
+    if Time.at(timestamp.to_i) < 5.minutes.ago
+      render nothing: true, status: :bad_request
+      return
+    end if Rails.env.production?
+
+    sig_basestring = [version_number, timestamp, raw_body].join(':')
+    digest = OpenSSL::Digest::SHA256.new
+    hex_hash = OpenSSL::HMAC.hexdigest(digest, signing_secret, sig_basestring)
+    computed_signature = [version_number, hex_hash].join('=')
+    slack_signature = request.headers['X-Slack-Signature']
+
+    if computed_signature != slack_signature
+      render nothing: true, status: :unauthorized
+    end
+  end
+
 end
-
-# describe DhcpConfigParser do
-#   let(:kea_config_json) { File.read("./spec/lib/data/kea.json") }
-#   let(:legacy_config_filepath) { "./spec/lib/data/export.txt" }
-#   let(:subnet_list) { ["192.168.1.0", "192.168.2.0"] }
-#   let(:fits_id) { "FITS_1646" }
-
-#   {
-#   "Dhcp4": {
-#     "interfaces-config": {
-#       "interfaces": [
-#         "*"
-#       ],
-#       "dhcp-socket-type": "udp",
-#       "outbound-interface": "use-routing"
-#     },
-#     "lease-database": {
-#       "type": "mysql",
-#       "name": "<DB_NAME>",
-#       "user": "<DB_USER>",
-#       "password": "<DB_PASS>",
-#       "host": "<DB_HOST>",
-#       "port": 3306
-#     },
-
-#     ....

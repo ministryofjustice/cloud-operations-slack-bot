@@ -3,20 +3,19 @@ require 'rails_helper'
 RSpec.describe "Slack", type: :request do
 
   describe "POST /events" do
-    it "responds with text 'Hello world' when receives post requests" do
-      headers = { "CONTENT_TYPE" => "application/json" }
-      post "/slack/events", :params => { :slack => {"type": "url_verification", "user": "U061F7AUR"}}
-      expect(response).to have_http_status(:success)
-      expect(response.body).to include("Hello World")
-    end
-  end
 
-  describe "POST /events" do 
-    it "responds with 'Auth Success' when using the credentials" do
-      post "/slack/events", :params => { :slack => {"type": "app_mention", "user": "U061F7AUR", "text": "<@U0LAN0Z89> is it everything a river should be?"} }
-      expect(response).to have_http_status(:success)
-      expect(response.body).to include("Authentication successful") 
+    it "rejects requests when requests cannot be verified to be slack requests" do
+      post "/slack/events", :params => { :slack => { "test": "value"} }
+      expect(response).to have_http_status(:unauthorized)
     end
+
+    it "verifies and responds with the 'challenge' attribute when slack sends an url-verification post request" do
+      headers = { "X-Slack-Request-Timestamp" => "1642698248", "X-Slack-Signature" => "v0=602f3c465b8dd9c5bcec398eb60451ec4de65162b285a802661cb0b5ffe0bc25" }
+      post "/slack/events", :params => { :slack => JSON.parse(File.read("./spec/lib/data/url_verification.json")) }, :headers => headers
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include("3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P") 
+    end
+
   end
 
 end
