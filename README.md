@@ -14,3 +14,4 @@ Upon being called to select a random team member the slack bot should then reply
 - :construction: Register another party
 - :construction: Convert User Slack IDs to Usernames in messages  
 - :construction: Convert Channel Slack IDs to Channel Name in messages  
+- :construction: Confirm User online prior to selection from list
