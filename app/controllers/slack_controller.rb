@@ -20,10 +20,10 @@ class SlackController < ApplicationController
     timestamp = request.headers['X-Slack-Request-Timestamp']
     raw_body = request.body.read
 
-    if Time.at(timestamp.to_i) < 5.minutes.ago
+    if Time.at(timestamp.to_i) < 5.minutes.ago && Rails.env.production?
       render nothing: true, status: :bad_request
       return
-    end if Rails.env.production?
+    end
 
     sig_basestring = [version_number, timestamp, raw_body].join(':')
     digest = OpenSSL::Digest::SHA256.new
