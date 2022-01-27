@@ -5,8 +5,10 @@ class SlackController < ApplicationController
   def events
     if params[:slack][:type] == "url_verification"
       render plain: params.require(:slack).permit(:challenge)[:challenge]
-    elsif params[:slack][:type] == "app_mention"
-      render plain: "Authentication successful"
+    elsif params[:slack][:event][:type] == "app_mention"
+      if params[:slack][:event][:text].include?("test123456789")
+        render plain: "Test successful", status: :ok
+      end
     else
       render plain: ""
     end  
