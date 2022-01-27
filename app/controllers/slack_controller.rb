@@ -7,7 +7,10 @@ class SlackController < ApplicationController
       render plain: params.require(:slack).permit(:challenge)[:challenge]
     elsif params[:slack][:event][:type] == "app_mention"
       if params[:slack][:event][:text].include?("test123456789")
+        channel = params[:slack][:event][:channel]
+        user = params[:slack][:event][:user]
         render plain: "Test successful", status: :ok
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":"Hi <@#{user}>, Test successful."})
       end
     else
       render plain: ""
