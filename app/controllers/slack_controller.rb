@@ -3,18 +3,22 @@ class SlackController < ApplicationController
   before_action :verify_slack_signature
 
   def events
-    if params[:slack][:type] == "url_verification"
+    case params[:slack][:type]
+    when "url_verification"
       render plain: params.require(:slack).permit(:challenge)[:challenge]
-    elsif params[:slack][:event][:type] == "app_mention"
-      if params[:slack][:event][:text].include?("test123456789")
-        channel = params[:slack][:event][:channel]
+    when "event_callback"
+      case params[:slack][:event][:type]
+      when "app_mention"
         user = params[:slack][:event][:user]
-        render plain: "Test successful", status: :ok
-        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":"Hi <@#{user}>, Test successful."})
+        channel = params[:slack][:event][:channel]
+        message = params[:slack][:event][:text].downcase
+        handle_app_mention(user, channel, message)
+      when "member_joined_channel"
+        user = params[:slack][:event][:user]
+        channel = params[:slack][:event][:channel]
+        handle_member_joined_channel(user, channel)
       end
-    else
-      render plain: ""
-    end  
+    end 
   end
 
   private
@@ -39,6 +43,19 @@ class SlackController < ApplicationController
     if computed_signature != slack_signature
       render nothing: true, status: :unauthorized
     end
+  end
+
+  def handle_app_mention(user, channel, message)
+    case message
+    when /test/
+      render plain: "Hi <@#{user}>, your test was successful.", status: :ok
+      HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":"Hi <@#{user}>, your test was successful. :tada:"})
+    end
+  end
+
+  def handle_member_joined_channel(user, channel)
+    render plain: "Hi <@#{user}>, Welcome to the channel.", status: :ok
+    HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":"Hi <@#{user}>, Welcome to the channel."})
   end
 
 end
