@@ -56,7 +56,7 @@ class SlackController < ApplicationController
         HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :speech_balloon: Hi <@#{user}>, have been successfully registered. :wave:"})
       else
         render plain: "Hi <@#{user}>, #{new_user.errors.full_messages.first}.", status: :ok
-        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :speech_balloon: Hi <@#{user}>, #{new_user.errors.full_messages.first}! \n \s \s \s \s \s \s :neutral_face: :point_right: :point_left: :neutral_face:"})
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :x: Hi <@#{user}>, #{new_user.errors.full_messages.first}! \n :neutral_face: :point_right: :point_left: :neutral_face:"})
       end
     when /select/
       selected_user = User.order(Arel.sql('RANDOM()')).first[:slack_handle]
