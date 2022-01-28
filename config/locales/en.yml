@@ -31,3 +31,14 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      user: 
+        slack_handle: "your slack handle"
+    errors:
+      models:
+        user: 
+          attributes:
+            slack_handle:
+              blank: "cannot be empty"
+              taken: "has already been registered"
