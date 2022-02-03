@@ -10,8 +10,10 @@ Upon being called to select a random team member the slack bot should then reply
 
 ## Future features :sparkles:  
 
-- :construction: Register yourself
-- :construction: Register another party
-- :construction: Convert User Slack IDs to Usernames in messages  
-- :construction: Convert Channel Slack IDs to Channel Name in messages  
+- ✔️ Register yourself
+- ✔️ Register another party
+- ✔️ Convert User Slack IDs to Usernames in messages  
+- ✔️ Convert Channel Slack IDs to Channel Name in messages  
 - :construction: Confirm User online prior to selection from list
+- :construction: Create separate lists per channel
+- :construction: Add a _plan my week_ feature. This feature would automatically generate a table of events and randomly select a user to host each event. 
