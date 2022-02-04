@@ -56,13 +56,19 @@ class SlackController < ApplicationController
         HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :speech_balloon: Hi <@#{user}>, have been successfully registered. :wave:"})
       else
         render plain: "Hi <@#{user}>, #{new_user.errors.full_messages.first}.", status: :ok
-        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :x: Hi <@#{user}>, #{new_user.errors.full_messages.first}! \n :neutral_face: :point_right: :point_left: :neutral_face:"})
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :heavy_exclamation_mark:  :x: Hi <@#{user}>, #{new_user.errors.full_messages.first}! \n :neutral_face: :point_right: :point_left: :neutral_face:"})
       end
     when /select/
-      selected_user = User.order(Arel.sql('RANDOM()')).first[:slack_handle]
-      render plain: "Hi <@#{selected_user}>, you have been selected.", status: :ok
-      HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":":robot_face: :speech_balloon: Hi <@#{selected_user}>, you have been selected. :wave:"})
+      if User.for_channel(channel).count > 0
+        selected_user = User.for_channel(channel).order(Arel.sql('RANDOM()')).first[:slack_handle]
+        render plain: "Hi <@#{selected_user}>, you have been selected.", status: :ok
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":":robot_face: :speech_balloon: Hi <@#{selected_user}>, you have been selected. :wave:"})
+      else
+        render plain: "Hey, no one is registered.", status: :ok
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":":robot_face: :heavy_exclamation_mark: No one is registered... so how can I select someone? I've wasted valueable kilobytes of memory on this operation. Maybe run '@CloudOpsBot help' if you don't know what you're doing. :rage: "})
+      end
     end
+
   end
 
   def handle_member_joined_channel(user, channel)
