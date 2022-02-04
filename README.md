@@ -8,12 +8,18 @@ Initially the primary function of the repository will be to enable us to manage 
 
 Upon being called to select a random team member the slack bot should then reply to the channel, tagging the user when doing so.  
 
-## Future features :sparkles:  
+## Features :sparkles:  
 
-- ✔️ Register yourself
-- ✔️ Register another party
+- ✔️ Register a user, associate the channel ID request in the database 
 - ✔️ Convert User Slack IDs to Usernames in messages  
-- ✔️ Convert Channel Slack IDs to Channel Name in messages  
+- ✔️ Convert Channel Slack IDs to Channel Name in messages 
 - :construction: Confirm User online prior to selection from list
 - :construction: Create separate lists per channel
 - :construction: Add a _plan my week_ feature. This feature would automatically generate a table of events and randomly select a user to host each event. 
+- :construction: Add a 'deregister' feature :wave: 
+- :construction: Heroku sleepiness
+
+### Error Handling: 
+- ✔️ "Select from a channel with no users"
+- :construction: "@CloudOpsBot help" add help output
+- :construction: fuzzy user commands i.e. 'select' = 'choose'
