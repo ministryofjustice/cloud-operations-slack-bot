@@ -58,6 +58,15 @@ class SlackController < ApplicationController
         render plain: "Hi <@#{user}>, #{new_user.errors.full_messages.first}.", status: :ok
         HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :heavy_exclamation_mark:  :x: Hi <@#{user}>, #{new_user.errors.full_messages.first}! \n :neutral_face: :point_right: :point_left: :neutral_face:"})
       end
+    when /deregister/
+      the_user = User.find_by(slack_handle: "U1")
+      if the_user?
+        render plain: "Hi <@#{user}>, you have been successfully deregistered.", status: :ok
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :speech_balloon: Hi <@#{user}>, have been successfully deregistered. :wave:"})
+      else
+        render plain: "Hi <@#{user}>, #{new_user.errors.full_messages.first}.", status: :ok
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :heavy_exclamation_mark:  :x: Hi <@#{user}>, #{new_user.errors.full_messages.first}! \n :neutral_face: :point_right: :point_left: :neutral_face:"})
+      end
     when /select/
       if User.for_channel(channel).count > 0
         selected_user = User.for_channel(channel).order(Arel.sql('RANDOM()')).first[:slack_handle]

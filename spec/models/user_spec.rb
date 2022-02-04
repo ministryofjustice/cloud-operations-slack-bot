@@ -35,4 +35,10 @@ RSpec.describe User, :type => :model do
   it "is null after one user was created in a previous example" do
     expect(User.count).to eq 0
   end
+
+  it "allows deletion of an existing user" do
+    user1 = User.create(slack_handle: "U1", channel_handle: "C1")
+    user1.delete
+    expect(User.count).to eq 0
+  end
 end
