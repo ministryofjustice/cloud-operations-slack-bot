@@ -5,8 +5,13 @@ RSpec.describe User, :type => :model do
     expect(User.count).to eq 0
   end
 
-  it "is one when one user does exist" do
-    User.create(slack_handle: "U1")
+  it "is null when one user does exist but no channel exists" do
+    User.create(slack_handle: "U1", channel_handle: "")
+    expect(User.count).to eq 0
+  end
+
+  it "is one when one user does exist and the channel exists" do
+    User.create(slack_handle: "U1", channel_handle: "C1")
     expect(User.count).to eq 1
   end
 

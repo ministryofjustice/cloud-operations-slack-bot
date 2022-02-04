@@ -9,9 +9,9 @@ class SlackController < ApplicationController
     when "event_callback"
       user = params[:slack][:event][:user]
       channel = params[:slack][:event][:channel]
-      ts = params[:slack][:event][:ts]
       case params[:slack][:event][:type]
       when "app_mention"
+        ts = params[:slack][:event][:ts]
         message = params[:slack][:event][:text].downcase
         handle_app_mention(user, channel, ts, message)
       when "member_joined_channel"
