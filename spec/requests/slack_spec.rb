@@ -32,7 +32,7 @@ RSpec.describe "Slack", type: :request do
     end
 
     it "verifies and responds with the 'error message' string when slack sends a string 'register' app mention request and user is already registered" do
-      User.create(slack_handle: "U029KDGBGNT")
+      User.create(slack_handle: "U029KDGBGNT", channel_handle: "C02TNSV394Y")
       headers = { "X-Slack-Request-Timestamp" => "1642698248", "X-Slack-Signature" => "v0=6696547d5e4b05f11891c405ba6bd19c17c28a439d79fdb0420c156da7ae7745" }
       post "/slack/events", :params => { :slack => JSON.parse(File.read("./spec/lib/data/app_mention_register.json")) }, :headers => headers
       expect(response).to have_http_status(:success)
@@ -40,12 +40,28 @@ RSpec.describe "Slack", type: :request do
       expect(User.count).to eq 1
     end
 
-    it "verifies and responds with the 'selected user' string when slack sends a string 'select' app mention request" do
-      User.create(slack_handle: "U029KDGBGNT")
+    it "verifies and responds with the 'selected user' from the same channel when slack sends a string 'select' app mention request from a channel" do
+      User.create(slack_handle: "U029KDGBGNT", channel_handle: "C02TNSV394Y")
+      User.create(slack_handle: "U2", channel_handle: "C2")
       headers = { "X-Slack-Request-Timestamp" => "1642698248", "X-Slack-Signature" => "v0=b813432e7837882cc3d6474027319c59d72b123f57d48ad4a99a165777aacb89" }
       post "/slack/events", :params => { :slack => JSON.parse(File.read("./spec/lib/data/app_mention_select.json")) }, :headers => headers
       expect(response).to have_http_status(:success)
       expect(response.body).to eql("Hi <@U029KDGBGNT>, you have been selected.")
+    end
+
+    it "verifies and responds with the 'no one registered' message when slack sends a string 'select' app mention request from a channel and no one is registered" do
+      headers = { "X-Slack-Request-Timestamp" => "1642698248", "X-Slack-Signature" => "v0=b813432e7837882cc3d6474027319c59d72b123f57d48ad4a99a165777aacb89" }
+      post "/slack/events", :params => { :slack => JSON.parse(File.read("./spec/lib/data/app_mention_select.json")) }, :headers => headers
+      expect(response).to have_http_status(:success)
+      expect(response.body).to eql("Hey, no one is registered.")
+    end
+
+    it "verifies and responds with the 'no one registered' message when slack sends a string 'select' app mention request from a channel and no one is registered from that particular channel" do
+      User.create(slack_handle: "U2", channel_handle: "C2")
+      headers = { "X-Slack-Request-Timestamp" => "1642698248", "X-Slack-Signature" => "v0=b813432e7837882cc3d6474027319c59d72b123f57d48ad4a99a165777aacb89" }
+      post "/slack/events", :params => { :slack => JSON.parse(File.read("./spec/lib/data/app_mention_select.json")) }, :headers => headers
+      expect(response).to have_http_status(:success)
+      expect(response.body).to eql("Hey, no one is registered.")
     end
 
   end

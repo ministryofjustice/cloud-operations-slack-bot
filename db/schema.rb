@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_28_145302) do
+ActiveRecord::Schema.define(version: 2022_02_04_115812) do
 
   create_table "users", force: :cascade do |t|
     t.string "slack_handle", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "channel_handle"
   end
 
 end
