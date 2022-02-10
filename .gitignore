@@ -35,3 +35,6 @@
 /coverage
 /.byebug_history
 /config/local_env.yml
+
+# Ignore .vscode which contains user specific configuration
+/.vscode
