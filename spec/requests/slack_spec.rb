@@ -70,6 +70,15 @@ RSpec.describe "Slack", type: :request do
       expect(response).to have_http_status(:success)
       expect(response.body).to eql("Hi <@U029KDGBGNT>, here's some help.")
     end
+    
+    it "verifies and responds with the 'successful deregistration' message when slack sends a string 'deregister' app mention request from a channel and user is registered" do
+      headers = { "X-Slack-Request-Timestamp" => "1642698248", "X-Slack-Signature" => "v0=882941076c1d5a6846f182c1c7cf76c7a60d79331897c928a8668a30f94c9be3" }
+      post "/slack/events", :params => { :slack => JSON.parse(File.read("./spec/lib/data/app_mention_deregister.json")) }, :headers => headers
+      expect(response).to have_http_status(:success)
+      expect(response.body).to eql("Hi <@U029KDGBGNT>, you are not registered.")
+      expect(User.count).to eq 0
+    end
+
   end
 
 end

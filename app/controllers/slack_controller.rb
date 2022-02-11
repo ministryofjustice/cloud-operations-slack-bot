@@ -52,6 +52,16 @@ class SlackController < ApplicationController
     when /help/
       render plain: "Hi <@#{user}>, here's some help.", status: :ok
       HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text": ":coffee: :robot_face: :smoking: Hi <@#{user}>, you need help? :flushed: Pfft! Alright. \n Mention me, @CloudOpsBot, in your message, in the channel, with the following commands... \n - 'Register' this registers a user to a the channel the command is ran in. \n - 'Select' this selects a registered user in the current channel. \n - 'Deregister' deregisters a user to a the channel the command is ran in. \n - 'Help' - Come on, how did you get here in the first place?!" })
+    when /deregister/
+      the_user = User.find_by(slack_handle: user, channel_handle: channel)
+      if the_user
+        the_user.delete
+        render plain: "Hi <@#{user}>, you have been successfully deregistered.", status: :ok
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :speech_balloon: Hi <@#{user}>, have been successfully deregistered. :wave:"})
+      else
+        render plain: "Hi <@#{user}>, you are not registered.", status: :ok
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :heavy_exclamation_mark:  :x: Hi <@#{user}>, You are not even registered! \n :neutral_face:"})
+      end
     when /register/
       new_user = User.new(slack_handle: user, channel_handle: channel)
       if new_user.save
