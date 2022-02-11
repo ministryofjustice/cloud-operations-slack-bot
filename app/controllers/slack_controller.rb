@@ -49,6 +49,16 @@ class SlackController < ApplicationController
     when /test/
       render plain: "Hi <@#{user}>, your test was successful.", status: :ok
       HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :speech_balloon: Hi <@#{user}>, your test was successful. :tada:"})
+    when /deregister/
+      the_user = User.find_by(slack_handle: user, channel_handle: channel)
+      if the_user
+        the_user.delete
+        render plain: "Hi <@#{user}>, you have been successfully deregistered.", status: :ok
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :speech_balloon: Hi <@#{user}>, have been successfully deregistered. :wave:"})
+      else
+        render plain: "Hi <@#{user}>, you are not registered.", status: :ok
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :heavy_exclamation_mark:  :x: Hi <@#{user}>, You are not even registered! \n :neutral_face:"})
+      end
     when /register/
       new_user = User.new(slack_handle: user, channel_handle: channel)
       if new_user.save
