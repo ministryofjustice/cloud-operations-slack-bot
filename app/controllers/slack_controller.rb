@@ -86,7 +86,7 @@ class SlackController < ApplicationController
 
   def handle_member_joined_channel(user, channel)
     render plain: "Hi <@#{user}>, Welcome to the channel.", status: :ok
-    HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":":robot_face: :speech_balloon: \n \n Hi <@#{user}>, Welcome to the channel I guess. \n \n I am your not-so-trustworthy CloudOpsBot. I am here to not help. If you still want to what I can do, send a message in the channel with 'help', make sure, you @ mention me. \n \n '@CloudOpsBot' help"})
+    HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":":robot_face: :speech_balloon:  Hi <@#{user}>, Welcome to the channel... I guess. \n \n I'm your not-so-trustworthy CloudOpsBot. If you want to know what I can do, send a message like this into the channel: \n \n @CloudOpsBot help "})
   end
 
 end
