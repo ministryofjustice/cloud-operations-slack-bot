@@ -8,6 +8,15 @@ Initially the primary function of the repository will be to enable us to manage 
 
 Upon being called to select a random team member the slack bot should then reply to the channel, tagging the user when doing so.  
 
+## Local Development
+
+To develop locally use RSpec, you will need a `config/local_env.yml` which must contain: 
+```
+SLACK_SIGNING_SECRET:
+SLACK_OAUTH_TOKEN:
+```
+
+You will see `Failure/Error: hex_hash = OpenSSL::HMAC.hexdigest(digest, signing_secret, sig_basestring)` when running RSpec if the file is not present. 
 ## Features :sparkles:  
 
 - ✔️ Register a user, associate the channel ID request in the database 
