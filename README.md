@@ -28,6 +28,7 @@ You will see `Failure/Error: hex_hash = OpenSSL::HMAC.hexdigest(digest, signing_
 - :construction: Add a 'deregister' feature :wave: 
 - :construction: Heroku sleepiness
 - :construction: List all registered users in a channel 
+- :construction: Add an icebreaker feature, maybe scrape from somewhere?
 
 ### Error Handling: 
 - ✔️ "Select from a channel with no users"
