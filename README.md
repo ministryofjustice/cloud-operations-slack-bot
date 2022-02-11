@@ -27,6 +27,7 @@ You will see `Failure/Error: hex_hash = OpenSSL::HMAC.hexdigest(digest, signing_
 - :construction: Add a _plan my week_ feature. This feature would automatically generate a table of events and randomly select a user to host each event. 
 - :construction: Add a 'deregister' feature :wave: 
 - :construction: Heroku sleepiness
+- :construction: List all registered users in a channel 
 
 ### Error Handling: 
 - ✔️ "Select from a channel with no users"
