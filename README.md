@@ -1,3 +1,5 @@
+[![Ruby on Rails CI](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/rubyonrails.yml)  
+
 # Cloud Operations Slack Bot :robot:  
 
 The purpose of this repository is to provide a Slack Bot for use in the MoJ [CloudOps](https://ministryofjustice.github.io/cloud-operations/#cloud-operations) team.  
