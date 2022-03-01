@@ -10,10 +10,13 @@ Upon being called to select a random team member the slack bot should then reply
 
 ## Local Development
 
-To develop locally use RSpec, you will need a `config/local_env.yml` which must contain: 
+To run this app locally, you will need to copy `.env.example` to `.env` file and must populate:  
+
 ```
-SLACK_SIGNING_SECRET:
-SLACK_OAUTH_TOKEN:
+SLACK_SIGNING_SECRET=
+SLACK_OAUTH_TOKEN=
+...
+DB_PASSWORD=
 ```
 
 You will see `Failure/Error: hex_hash = OpenSSL::HMAC.hexdigest(digest, signing_secret, sig_basestring)` when running RSpec if the file is not present. 
