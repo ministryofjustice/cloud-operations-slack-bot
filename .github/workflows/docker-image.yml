@@ -1,13 +1,11 @@
 name: Docker Image CI
 
 on:
-  push:
-    workflow_run:
+  workflow_run:
     workflows: ["Ruby on Rails CI"]
     branches: [main]
     types: 
       - completed
-
 
 jobs:
 
