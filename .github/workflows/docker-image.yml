@@ -2,13 +2,16 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    workflow_run:
+    workflows: ["Ruby on Rails CI"]
+    branches: [main]
+    types: 
+      - completed
+
 
 jobs:
 
-  build:
+  build-tag-push:
 
     runs-on: ubuntu-latest
 
