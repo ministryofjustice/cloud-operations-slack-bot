@@ -1,4 +1,4 @@
-[![Ruby on Rails CI](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/rubyonrails.yml)  
+[![Ruby on Rails CI](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/rubyonrails.yml)  [![Docker Image CI](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/docker-image.yml/badge.svg)](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/docker-image.yml)  
 
 # Cloud Operations Slack Bot :robot:  
 
