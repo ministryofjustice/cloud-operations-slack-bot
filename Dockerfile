@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1
 FROM ruby:3.0.3
 
-ARG UID=1001
-ARG GROUP=app
-ARG USER=app
+ARG UID=1000
+ARG GROUP=3000
+ARG USER=1000
 ARG HOME=/home/$USER
 ARG APPDIR=$HOME/cloud-operation-slack-bot
 
