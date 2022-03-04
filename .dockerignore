@@ -48,3 +48,6 @@
 # Allow hidden ruby files
 !.rspec
 !.ruby-version
+
+# Exclude helm chart
+/cloudopsbot
