@@ -2,6 +2,13 @@ require 'rails_helper'
 
 RSpec.describe "Slack", type: :request do
 
+  describe "GET /" do
+    it "responds with welcome" do
+      get "/"
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
   describe "POST /events" do
 
     it "rejects requests when requests cannot be verified to be slack requests" do
