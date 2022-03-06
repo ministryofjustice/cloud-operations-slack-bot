@@ -53,7 +53,7 @@ RSpec.describe "Slack", type: :request do
       headers = { "X-Slack-Request-Timestamp" => "1642698248", "X-Slack-Signature" => "v0=b813432e7837882cc3d6474027319c59d72b123f57d48ad4a99a165777aacb89" }
       post "/slack/events", :params => { :slack => JSON.parse(File.read("./spec/lib/data/app_mention_select.json")) }, :headers => headers
       expect(response).to have_http_status(:success)
-      expect(response.body).to eql("Hi <@U029KDGBGNT>, you have been selected.")
+      expect(response.body).to eql("Hi <@URANDOM1>, you have been selected.")
     end
 
     it "verifies and responds with the 'no one registered' message when slack sends a string 'select' app mention request from a channel and no one is registered" do
