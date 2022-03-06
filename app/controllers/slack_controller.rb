@@ -1,6 +1,10 @@
 class SlackController < ApplicationController
 
-  before_action :verify_slack_signature
+  before_action :verify_slack_signature, only: [:events]
+
+  def index
+    render plain: "Welcome to Cloud Operations Slack bot app.", status: :ok
+  end
 
   def events
     case params[:slack][:type]
