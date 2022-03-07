@@ -21,7 +21,21 @@ SLACK_OAUTH_TOKEN=
 DB_PASSWORD=
 ```
 
-You will see `Failure/Error: hex_hash = OpenSSL::HMAC.hexdigest(digest, signing_secret, sig_basestring)` when running RSpec if the file is not present. 
+You will see `Failure/Error: hex_hash = OpenSSL::HMAC.hexdigest(digest, signing_secret, sig_basestring)` when running RSpec if the file is not present.  
+
+Available `Makefile` targets:  
+
+- `Make build`  
+- `Make run`  
+- `Make test`  
+
+If you wish to run the kubernetes deployment, populate the below values in the `.env` file:  
+
+```
+ECR_URL= <can be found in the kubernetes secrets>
+SECRET_KEY_BASE= #generate one by: openssl rand -base64 32
+```
+
 ## Features :sparkles:  
 
 - ✔️ Register a user, associate the channel ID request in the database 
