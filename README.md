@@ -1,6 +1,6 @@
-[![Ruby on Rails CI](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/rubyonrails.yml)  [![Docker Image CI](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/docker-image.yml/badge.svg)](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/docker-image.yml)  
+[![Ruby on Rails CI](https://img.shields.io/github/workflow/status/ministryofjustice/cloud-operations-slack-bot/Ruby%20on%20Rails%20CI/main?label=Tests&logo=Ruby&logoColor=crimson&style=for-the-badge)](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/rubyonrails.yml)  [![Docker Image CI](https://img.shields.io/github/workflow/status/ministryofjustice/cloud-operations-slack-bot/Docker%20Image%20CI/main?logo=Docker&style=for-the-badge)](https://github.com/ministryofjustice/cloud-operations-slack-bot/actions/workflows/docker-image.yml)  
 
-# Cloud Operations Slack Bot :robot:  
+# Cloud Operations Slack Bot :robot: ![Watchers](https://img.shields.io/github/watchers/ministryofjustice/cloud-operations-slack-bot?style=social)  
 
 The purpose of this repository is to provide a Slack Bot for use in the MoJ [CloudOps](https://ministryofjustice.github.io/cloud-operations/#cloud-operations) team.  
 
