@@ -70,7 +70,7 @@ class SlackController < ApplicationController
       new_user = User.new(slack_handle: user, channel_handle: channel)
       if new_user.save
         render plain: "Hi <@#{user}>, you have been successfully registered.", status: :ok
-        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :speech_balloon: Hi <@#{user}>, have been successfully registered. :wave:"})
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :speech_balloon: Hi <@#{user}>, you have been successfully registered. :wave:"})
       else
         render plain: "Hi <@#{user}>, #{new_user.errors.full_messages.first}.", status: :ok
         HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :heavy_exclamation_mark:  :x: Hi <@#{user}>, #{new_user.errors.full_messages.first}! \n :neutral_face: :point_right: :point_left: :neutral_face:"})
