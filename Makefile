@@ -17,6 +17,6 @@ stop:
 deploy:
 	helm upgrade cloudopsbot-prod cloudopsbot \
 		--set image.repository=$$ECR_URL \
-		--set rails.secret_key_base=$$SECRET_KEY_BASE= \
+		--set rails.secret_key_base=$$SECRET_KEY_BASE \
 		--set slack.signing_secret=$$SLACK_SIGNING_SECRET \
 		--set slack.oauth_token=$$SLACK_OAUTH_TOKEN
