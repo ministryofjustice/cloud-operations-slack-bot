@@ -29,12 +29,34 @@ Available `Makefile` targets:
 - `Make run`  
 - `Make test`  
 
-If you wish to run the kubernetes deployment, populate the below values in the `.env` file:  
+## Remote Deployment  
+
+If you wish to release another Helm Chart upgrade to the k8s cluster in Cloud Platform, please follow the steps below:  
+
+- Step :one: : Follow the [Cloud Platform guide](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/kubectl-config.html#how-to-use-kubectl-to-connect-to-the-cluster) to authenticate and configure your local `kubectl` to connect to the cluster.  
+
+
+- Step :two: : Populate the below values in the `.env` file:  
 
 ```
 ECR_URL= <can be found in the kubernetes secrets>
 SECRET_KEY_BASE= #generate one by: openssl rand -base64 32
+```  
+
+Follow the [Cloud Platform guide](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/ecr-setup.html#accessing-the-credentials) to read secrets in kubernetes.  
+
+
+- Step :three: : Update the appVersion value of the chart in `cloudopsbot/Chart.yaml` file to the appropriate values (an example: `v1.0.1`). Run the below command to get a list of available tags:  
+
 ```
+git tag
+```  
+
+- Step :four: : use the below Makefile target to release a Helm chart upgrade:  
+
+```
+make deploy
+```  
 
 ## Features :sparkles:  
 
