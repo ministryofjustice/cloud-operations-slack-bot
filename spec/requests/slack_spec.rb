@@ -71,6 +71,16 @@ RSpec.describe "Slack", type: :request do
       expect(response.body).to eql("Hey, no one is registered.")
     end
 
+    it "verifies and responds with all registered users in the channel when slack sends a string 'list' app mention request from a given channel" do
+      User.create(slack_handle: "U1", channel_handle: "C1")
+      User.create(slack_handle: "U2", channel_handle: "C1")
+      User.create(slack_handle: "U3", channel_handle: "C1")
+      headers = { "X-Slack-Request-Timestamp" => "1642698248", "X-Slack-Signature" => "v0=b813432e7837882cc3d6474027319c59d72b123f57d48ad4a99a165777aacb89" }
+      post "/slack/events", :params => { :slack => JSON.parse(File.read("./spec/lib/data/app_mention_list.json")) }, :headers => headers
+      expect(response).to have_http_status(:success)
+      expect(response.body).to eql("All registered users in this channel. U1 U2 U3")
+    end
+
     it "verifies and responds with 'help' message when slack sends a string 'help' app mention request from a channel" do 
       headers = { "X-Slack-Request-Timestamp" => "1642698248", "X-Slack-Signature" => "v0=fe7c0d0cc0fb94eb1ae7bfbdc783d2f69e5b0d41de970d5d46fed65633847eeb" }
       post "/slack/events", :params => { :slack => JSON.parse(File.read("./spec/lib/data/app_mention_help.json")) }, :headers => headers
