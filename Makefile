@@ -2,17 +2,23 @@
 -include .env
 export
 
+UID=$(shell id -u)
+DOCKER_COMPOSE = env UID=$(UID) docker-compose -f docker-compose.yml
+
 build:
-	docker-compose build
+	$(DOCKER_COMPOSE) build
+
+db-setup:
+	$(DOCKER_COMPOSE) run --rm app bundle exec rails db:drop db:create db:migrate
 
 run: build
-	docker-compose up
+	$(DOCKER_COMPOSE) up
 
 test: build
-	docker-compose run --rm app bundle exec rake
+	$(DOCKER_COMPOSE) run --rm app bundle exec rake
 
 stop:
-	docker-compose down
+	$(DOCKER_COMPOSE) down
 
 deploy:
 	helm upgrade cloudopsbot-prod cloudopsbot \
