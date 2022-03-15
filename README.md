@@ -25,9 +25,9 @@ You will see `Failure/Error: hex_hash = OpenSSL::HMAC.hexdigest(digest, signing_
 
 Available `Makefile` targets:  
 
-- `Make build`  
-- `Make run`  
-- `Make test`  
+- `make build`  
+- `make run`  
+- `make test`  
 
 ## Remote Deployment  
 
@@ -76,3 +76,7 @@ make deploy
 - ✔️ "Select from a channel with no users"
 - ✔️ "@CloudOpsBot help" add help output
 - :construction: fuzzy user commands i.e. 'select' = 'choose'
+
+### Bugs 
+
+- Fix /tmp/db permission errors 999:root
