@@ -58,7 +58,7 @@ git tag
 make deploy
 ```  
 
-## Features :sparkles:  
+## Features / To Do :sparkles:  
 
 - ✔️ Register a user, associate the channel ID request in the database 
 - ✔️ Convert User Slack IDs to Usernames in messages  
@@ -66,12 +66,13 @@ make deploy
 - :construction: Confirm User online prior to selection from list
 - :construction: Create separate lists per channel
 - :construction: Add a _plan my week_ feature. This feature would automatically generate a table of events and randomly select a user to host each event. 
-- :construction: Add a 'deregister' feature :wave: 
-- :construction: Heroku sleepiness
+- ✔️ Add a 'deregister' feature :wave: 
+- ✔️ ~Heroku sleepiness~ Migrated to AWS on Cloud Platforms
 - :construction: List all registered users in a channel 
 - :construction: Add an icebreaker feature, maybe scrape from somewhere?
+- :construction: Return form for more information related to ceremony
 
 ### Error Handling: 
 - ✔️ "Select from a channel with no users"
-- :construction: "@CloudOpsBot help" add help output
+- ✔️ "@CloudOpsBot help" add help output
 - :construction: fuzzy user commands i.e. 'select' = 'choose'
