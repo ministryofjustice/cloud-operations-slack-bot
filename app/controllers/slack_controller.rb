@@ -48,6 +48,11 @@ class SlackController < ApplicationController
     end
   end
 
+  def randmoji
+    collection = ["😀", "😃", "😄", "😁", "😆", "😅", "🤣", "😂", "🙂", "🙃", "😉", "😊", "😇", "🥰", "😍", "🤩", "😘", "😗", "😚", "😙", "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔", "🤐", "🤨", "😐", "😑", "😶", "😶‍🌫️", "😏", "😒", "🙄", "😬", "😮‍💨", "🤥", "😌", "😔", "😪", "🤤", "😴", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "🥵", "🥶", "🥴", "😵", "😵‍💫", "🤯", "🤠", "🥳", "😎", "🤓", "🧐", "😕", "😟", "🙁", "☹️", "😮", "😯", "😲", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😢", "😭", "😱", "😖", "😣", "😞", "😓", "😩", "😫", "🥱", "😤", "😡", "😠", "🤬", "💀", "💩", "🤡", "👹", "👺", "👻", "👽", "👾", "🤖"]
+    collection.sample
+  end
+
   def handle_app_mention(user, channel, ts, message)
     case message
     when /test/
@@ -84,8 +89,19 @@ class SlackController < ApplicationController
         render plain: "Hey, no one is registered.", status: :ok
         HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":":robot_face: :heavy_exclamation_mark: No one is registered... so how can I select someone? I've wasted valueable kilobytes of memory on this operation. Maybe run '@CloudOpsBot help' if you don't know what you're doing. :rage: "})
       end
+    when /list/
+      list_of_registered_users = User.for_channel(channel)
+      if list_of_registered_users.length > 0
+        list = ""
+        list_of_registered_users.each { | user | list+= "\n • #{randmoji} <@#{user.slack_handle}>" }
+        render plain: "All registered users in this channel. #{list.to_s}", status: :ok
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":":robot_face: :speech_balloon: Here are the registered users: #{list.to_s}"})
+      else
+        render plain: "No registered users in this channel.", status: :ok
+        HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":":robot_face: :speech_balloon: No registered users in this channel."})
+      end
     end
-
+    
   end
 
   def handle_member_joined_channel(user, channel)
