@@ -10,8 +10,8 @@ Initially the primary function of the repository will be to enable us to manage 
 
 Upon being called to select a random team member the slack bot should then reply to the channel, tagging the user when doing so.  
 
-Please refer to our (Wiki)[https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/] for more information.
+Please refer to our [Wiki](https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/) for more information.
 
-- (Local Development)[https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/1.-Local-Development]
-- (Remote Deployment)[https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/2.-Remote-Deployment]
-- (Features)[https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/3.-Features]
+- [Local Development](https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/1.-Local-Development)
+- [Remote Deployment](https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/2.-Remote-Deployment)
+- [Features](https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/3.-Features)
