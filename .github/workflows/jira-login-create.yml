@@ -25,6 +25,7 @@ jobs:
         issuetype: Story
         summary: |
           Story created for ${{ github.repository }}
+        fields: '{"customfield_14248": "NOT RELEVANT"}'
 
     - name: Log created issue
       run: echo "Issue ${{ steps.create.outputs.issue }} was created"
