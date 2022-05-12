@@ -21,11 +21,10 @@ jobs:
       id: create
       uses: atlassian/gajira-create@master
       with:
-        project: PTTP
+        project: TC
         issuetype: Story
         summary: |
           Story created for ${{ github.repository }}
-        fields: '{"customfield_14248": "12459"}'
 
     - name: Log created issue
       run: echo "Issue ${{ steps.create.outputs.issue }} was created"
