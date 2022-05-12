@@ -24,7 +24,12 @@ jobs:
         project: TC
         issuetype: Story
         summary: |
-          Story created for ${{ github.repository }}
+           ${{ github.event.issue.title }} [GH#${{ github.event.issue.number }}]
+        description: |
+          {panel}
+          *Created By:* ${{ github.event.issue.user.login }}
+          [Github permalink|${{ github.event.issue.html_url }}]
+          {panel}
 
     - name: Log created issue
       run: echo "Issue ${{ steps.create.outputs.issue }} was created"
