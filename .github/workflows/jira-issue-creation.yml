@@ -15,8 +15,8 @@ jobs:
         env:
           JIRA_ACCOUNT_URL: https://dsdmoj.atlassian.net/
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN_AR }}
-          JIRA_ISSUE_DESCRIPTION: Demo'ing Jira Issue Creation
-          JIRA_ISSUE_SUMMARY: Demo'ing Jira Issue Creation
+          JIRA_ISSUE_DESCRIPTION: Demo Jira Issue Creation
+          JIRA_ISSUE_SUMMARY: Demo Jira Issue Creation
           JIRA_ISSUE_TYPE: Story
           JIRA_PROJECT: PTTP
           JIRA_USERNAME: aaron.robinson1@justice.gov.uk
