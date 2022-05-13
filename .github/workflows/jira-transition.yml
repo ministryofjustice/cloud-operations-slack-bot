@@ -8,7 +8,7 @@ name: Transition Jira Ticket
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Create Jira Ticket
+    name: Transition Jira Ticket
     steps:
     - name: Login
       uses: atlassian/gajira-login@master
@@ -17,8 +17,13 @@ jobs:
         JIRA_USER_EMAIL: aaron.robinson1@justice.gov.uk
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN_AR }}
 
-    - name: Transition issue
+    - name: Find
+      uses: atlassian/gajira-find-issue-key@master
+      with:
+        string: ${{ github.event.ref }}
+
+    - name: Transition Issue
       uses: atlassian/gajira-transition@master
       with:
-        issue: ${{ github.event.issue.title }} [GH#${{ github.event.issue.number }}]
+        issue: ${{ steps.find.outputs.issue }}
         transition: "Done"
