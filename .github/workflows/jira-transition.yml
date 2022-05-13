@@ -21,6 +21,7 @@ jobs:
       uses: atlassian/gajira-find-issue-key@master
       with:
         string: ${{ github.event.ref }}
+        from: ""
 
     - name: Transition Issue
       uses: atlassian/gajira-transition@master
