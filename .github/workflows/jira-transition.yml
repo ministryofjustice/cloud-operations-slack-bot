@@ -8,7 +8,7 @@ name: Transition Jira Ticket
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Create Jira Ticket
+    name: Transition Jira Ticket
     steps:
     - name: Login
       uses: atlassian/gajira-login@master
@@ -20,5 +20,5 @@ jobs:
     - name: Transition issue
       uses: atlassian/gajira-transition@master
       with:
-        issue: ${{ github.event.issue.title }} [GH#${{ github.event.issue.number }}]
+        issue: TC-3
         transition: "Done"
