@@ -60,7 +60,7 @@ class SlackController < ApplicationController
       HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text":":robot_face: :speech_balloon: Hi <@#{user}>, your test was successful. :tada:"})
     when /help/
       render plain: "Hi <@#{user}>, here's some help.", status: :ok
-      HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text": ":coffee: :robot_face: :smoking: \n \n Hi <@#{user}>, you need help? :flushed: Pfft! Alright. \n \n Mention me, @CloudOpsBot, in your message, in the channel, with the following commands... \n \n • 'Register' registers you to the channel the command is ran in. \n • 'Select' selects a registered user in the current channel. \n • 'Deregister' deregisters you from the channel. \n • 'Help' Come on, how did you get here in the first place?!" })
+      HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"thread_ts":ts,"text": ":coffee: :robot_face: :smoking: \n \n Hi <@#{user}>, you need help? :flushed: Pfft! Alright. \n \n Mention me, @CloudOpsBot, in your message, in the channel, with the following commands... \n \n • 'Register' registers you to the channel the command is ran in. \n • 'Select' selects a registered user in the current channel. \n • 'Deregister' deregisters you from the channel. \n • 'List' List all registered Users in the current channel.  \n • 'Help' Come on, how did you get here in the first place?!" })
     when /deregister/
       the_user = User.find_by(slack_handle: user, channel_handle: channel)
       if the_user
