@@ -12,6 +12,7 @@ Upon being called to select a random team member the slack bot should then reply
 
 Please refer to our [Wiki](https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/) for more information.
 
-- [Local Development](https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/1.-Local-Development)
-- [Remote Deployment](https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/2.-Remote-Deployment)
-- [Features](https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/3.-Features)
+- [Local Development 👩‍💻](https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/1.-Local-Development-%F0%9F%91%A9%E2%80%8D%F0%9F%92%BB)
+- [Remote Deployment 🤝](https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/2.-Remote-Deployment-%F0%9F%A4%9D)
+- [Features ✨](https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/3.-Features-%E2%9C%A8)
+- [Examples 😎](https://github.com/ministryofjustice/cloud-operations-slack-bot/wiki/4.-Examples-%F0%9F%A7%90)
