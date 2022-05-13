@@ -5,10 +5,21 @@ export
 build:
 	docker-compose build
 
-run: build
-	docker-compose up
+start-db:
+	docker-compose up -d db
 
-test: build
+db-setup: start-db
+	docker-compose run --rm app ./bin/rails db:drop db:create
+
+migrate: db-setup
+	docker-compose run --rm app ./bin/rails db:migrate
+
+serve: stop start-db
+	docker-compose up app
+
+run: serve
+
+test: stop start-db
 	docker-compose run --rm app bundle exec rake
 
 stop:
