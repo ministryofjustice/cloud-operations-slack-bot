@@ -21,7 +21,7 @@ jobs:
       id: find
       uses: atlassian/gajira-find-issue-key@master
       with:
-        from: branch 
+        from: branch
 
     - name: Transition Issue
       uses: atlassian/gajira-transition@master
