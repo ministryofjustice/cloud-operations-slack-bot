@@ -1,5 +1,10 @@
 class SlackController < ApplicationController
 
+  require 'net/http'
+  require 'net/https'
+  require 'uri'
+  require 'json'
+
   before_action :verify_slack_signature, only: [:events]
 
   def index
@@ -42,7 +47,6 @@ class SlackController < ApplicationController
     hex_hash = OpenSSL::HMAC.hexdigest(digest, signing_secret, sig_basestring)
     computed_signature = [version_number, hex_hash].join('=')
     slack_signature = request.headers['X-Slack-Signature']
-
     if computed_signature != slack_signature
       render nothing: true, status: :unauthorized
     end
@@ -100,6 +104,11 @@ class SlackController < ApplicationController
         render plain: "No registered users in this channel.", status: :ok
         HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":":robot_face: :speech_balloon: No registered users in this channel."})
       end
+    when /incident/
+      post_incident_to_service_now
+      incident_number = post_incident_to_service_now
+      render plain: "Hey, incident #{incident_number} created!!!", status: :ok
+      HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":"Hey #{incident_number} created!!!"})
     end
     
   end
@@ -109,4 +118,20 @@ class SlackController < ApplicationController
     HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":":robot_face: :speech_balloon:  Hi <@#{user}>, Welcome to the channel... I guess. \n \n I'm your not-so-trustworthy CloudOpsBot. If you want to know what I can do, send a message like this into the channel: \n \n @CloudOpsBot help "})
   end
 
+  def post_incident_to_service_now    
+    uri = URI.parse("https://mojpreprod.service-now.com/api/moju2/cloud_ops/create_incident")
+    payload = File.read("incident.json")
+    incident = JSON.parse(payload)
+
+    header = {'Content-Type': 'application/json'}
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
+    request = Net::HTTP::Post.new(uri.request_uri, header)
+    request.basic_auth ${{ secrets.SNOW_BASIC_AUTH_USERNAME }}, ${{ secrets.SNOW_BASIC_AUTH_PASSWORD }}
+    request.body = incident.to_json
+
+    response = https.request(request)
+    response_parse = JSON.parse(response.body)
+    incident_number = response_parse['result']['incident_number']
+  end
 end
