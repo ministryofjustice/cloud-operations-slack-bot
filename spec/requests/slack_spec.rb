@@ -97,7 +97,7 @@ RSpec.describe "Slack", type: :request do
     end
 
     it "verifies and responds with the 'new incident created' message when slack sends a string 'incident' app mention request from a channel and user is registered" do
-      headers = { "X-Slack-Request-Timestamp" => "1642698248", "X-Slack-Signature" => "v0=2aec3edd38a73c8e968cc87c1db6ce5773273a8cea68c75cb9c7ca569820f3c7" }
+      headers = { "X-Slack-Request-Timestamp" => "1642698248", "X-Slack-Signature" => "v0=d2abdae9037eb85ae21c30573f7e554da2859350818eec145024c9658d2f0d4f" }
       post "/slack/events", :params => { :slack => JSON.parse(File.read("./spec/lib/data/app_mention_incident.json")) }, :headers => headers
       expect(response).to have_http_status(:success)
       expect(response.body).to include("INC")
