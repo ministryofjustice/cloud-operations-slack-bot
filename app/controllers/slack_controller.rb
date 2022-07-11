@@ -132,6 +132,7 @@ class SlackController < ApplicationController
     request.body = incident.to_json
 
     response = https.request(request)
+    p ENV['SNOW_BASIC_AUTH_USERNAME']
     p response.body
     JSON.parse(response.body)['result']['incident_number']
   end
