@@ -127,7 +127,7 @@ class SlackController < ApplicationController
     https = Net::HTTP.new(uri.host, uri.port)
     https.use_ssl = true
     request = Net::HTTP::Post.new(uri.request_uri, header)
-    request.basic_auth ENV['SNOW_BASIC_AUTH_USERNAME'], ENV['SNOW_BASIC_AUTH_PASSWORD']
+    #request.basic_auth ENV['SNOW_BASIC_AUTH_USERNAME'], ENV['SNOW_BASIC_AUTH_PASSWORD']
     request.basic_auth {{ secrets.SNOW_BASIC_AUTH_USERNAME }}, {{ secrets.SNOW_BASIC_AUTH_PASSWORD }}
     request.body = incident.to_json
 
