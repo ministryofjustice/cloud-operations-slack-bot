@@ -19,7 +19,7 @@ serve: stop start-db
 
 run: serve
 
-test: stop start-db
+test: stop build start-db
 	docker-compose run --rm app bundle exec rake
 
 stop:
