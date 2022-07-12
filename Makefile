@@ -32,4 +32,5 @@ deploy:
 		--set slack.signing_secret=$$SLACK_SIGNING_SECRET \
 		--set slack.oauth_token=$$SLACK_OAUTH_TOKEN \
 		--set snow.basic_auth_username=$$SNOW_BASIC_AUTH_USERNAME \
-		--set snow.basic_auth_password=$$SNOW_BASIC_AUTH_PASSWORD
+		--set snow.basic_auth_password=$$SNOW_BASIC_AUTH_PASSWORD \
+		--set snow.url=$$SNOW_URL

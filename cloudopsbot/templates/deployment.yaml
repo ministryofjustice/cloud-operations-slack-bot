@@ -62,7 +62,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: cloudopsbot-app-secrets
-                  key: snow_basic_auth_password 
+                  key: snow_basic_auth_password
+            - name: SNOW_URL
+              valueFrom:
+                secretKeyRef:
+                  name: cloudopsbot-app-secrets
+                  key: snow_url 
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
