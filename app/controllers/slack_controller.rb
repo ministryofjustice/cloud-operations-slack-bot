@@ -118,7 +118,7 @@ class SlackController < ApplicationController
   end
 
   def post_incident_to_service_now(incident_title)
-    uri = URI.parse("https://mojpreprod.service-now.com/api/moju2/cloud_ops/create_incident")
+    uri = URI.parse(ENV['SNOW_URL'])
     payload = File.read("fixtures/incident.json")
     incident = JSON.parse(payload)
     incident["short_description"] = incident_title
