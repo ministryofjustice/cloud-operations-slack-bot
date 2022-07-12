@@ -30,4 +30,6 @@ deploy:
 		--set image.repository=$$ECR_URL \
 		--set rails.secret_key_base=$$SECRET_KEY_BASE \
 		--set slack.signing_secret=$$SLACK_SIGNING_SECRET \
-		--set slack.oauth_token=$$SLACK_OAUTH_TOKEN
+		--set slack.oauth_token=$$SLACK_OAUTH_TOKEN \
+		--set snow.basic_auth_username=$$SNOW_BASIC_AUTH_USERNAME \
+		--set snow.basic_auth_password=$$SNOW_BASIC_AUTH_PASSWORD
