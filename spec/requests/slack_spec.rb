@@ -103,6 +103,14 @@ RSpec.describe "Slack", type: :request do
       expect(response.body).to include("INC")
       expect(User.count).to eq 0
     end
+
+    it "verifies and responds with the 'Question of the Day' message when slack sends a string 'QOTD' app mention request from a channel and user is registered" do
+      headers = { "X-Slack-Request-Timestamp" => "1642698248", "X-Slack-Signature" => "v0=b51d76cc8c1669a479eddc266106d87cefe591ccebccaa21247c273fbfd55a5f" }
+      post "/slack/events", :params => { :slack => JSON.parse(File.read("./spec/lib/data/app_mention_qotd.json")) }, :headers => headers
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include("qotd")
+      expect(User.count).to eq 0
+    end
   end
 
 end
