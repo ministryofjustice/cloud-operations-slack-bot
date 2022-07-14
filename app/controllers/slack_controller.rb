@@ -110,9 +110,8 @@ class SlackController < ApplicationController
       render plain: "Hey, incident #{incident_number} created!!!", status: :ok
       HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":":robot_face: :speech_balloon: *#{incident_number}* - _'#{incident_title}'_ - has been created in Service Now."})
     when /qotd/
-      question_of_the_day = get_question_of_the_day
-      render plain: "Hey, here's your qotd", status: :ok
-      HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":":robot_face: :speech_balloon: QOTD: "})
+      render plain: "Hey, here's your QOTD.", status: :ok
+      HTTP.auth("Bearer #{ENV['SLACK_OAUTH_TOKEN']}").post("https://slack.com/api/chat.postMessage", :json => {"channel":channel,"text":":robot_face: :question: Question of the Day: #{question_of_the_day}"})
     end
   end
 
@@ -139,30 +138,15 @@ class SlackController < ApplicationController
     JSON.parse(response.body)['result']['incident_number']
   end
 
-  # def get_question_of_the_day
+  def question_of_the_day
     # get a session token 
-    # uri = URI.parse("https://opentdb.com/api_token.php?command=request")
-    # response = Net::HTTP.get_response(uri)
-    # p response.body
-    # question = JSON.parse(response.body)['token']
-    # p question
-    # uri = URI.parse("https://opentdb.com/api_token.php?command=request")
-    # p "uri: #{uri}"
-
-    # https = Net::HTTP.new(uri.host, uri.port)
-    # p "https: #{https}"
-    # https.use_ssl = true
-
-    # request = Net::HTTP::Get.new(uri.request_uri)
-    # p "request: #{request}"
-    # request.body = {}
-
-    # response = https.request(request)
-    # p "response: #{responsey}"
-
-    # body = JSON.parse(response.body)
-    # p "body: #{body}"
-    # append to get question
-    # return the qotd to be called in the handle mention method
-  # end
+    token_uri = URI.parse("https://opentdb.com/api_token.php?command=request")
+    token_response = Net::HTTP.get_response(token_uri)
+    session_token = JSON.parse(token_response.body)['token']
+    
+    # get the question of the day
+    question_uri = URI.parse("https://opentdb.com/api.php?amount=1&category=9&difficulty=easy&token=#{session_token}")
+    question_response = Net::HTTP.get_response(question_uri)
+    question = JSON.parse(question_response.body)['results'][0]['question']
+  end
 end
