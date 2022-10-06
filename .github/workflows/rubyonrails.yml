@@ -27,6 +27,9 @@ jobs:
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
       SLACK_SIGNING_SECRET: ${{ secrets.SLACK_SIGNING_SECRET }}
       SLACK_OAUTH_TOKEN: ${{ secrets.SLACK_OAUTH_TOKEN }}
+      SNOW_BASIC_AUTH_USERNAME: ${{ secrets.SNOW_BASIC_AUTH_USERNAME }}
+      SNOW_BASIC_AUTH_PASSWORD: ${{ secrets.SNOW_BASIC_AUTH_PASSWORD }}
+      SNOW_URL: ${{ secrets.SNOW_URL }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2

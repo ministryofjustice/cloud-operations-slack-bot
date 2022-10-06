@@ -1,0 +1,12 @@
+{
+  "caller_id": "f94087c21b24cd10e9e9ffb7d34bcbcf",
+  "u_moj_estate": "adee4828dbc2bb081b4ffc45ae9619fa",
+  "contact_type": "Atos Auto-Ticketing",
+  "category": "software",
+  "subcategory": "configuration",
+  "service_offering": "04e8326fdbc2af0096907cbdae9619e7",
+  "cmdb_ci": "abaa31091bc78410299cdc6fbd4bcbf3",
+  "impact": "2",
+  "assignment_group": "eef0d119dbdf63407667fc45ae96191b",
+  "short_description": "Completely different incident!"
+}

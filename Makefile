@@ -19,7 +19,7 @@ serve: stop start-db
 
 run: serve
 
-test: stop start-db
+test: stop build start-db
 	docker-compose run --rm app bundle exec rake
 
 stop:
@@ -30,4 +30,7 @@ deploy:
 		--set image.repository=$$ECR_URL \
 		--set rails.secret_key_base=$$SECRET_KEY_BASE \
 		--set slack.signing_secret=$$SLACK_SIGNING_SECRET \
-		--set slack.oauth_token=$$SLACK_OAUTH_TOKEN
+		--set slack.oauth_token=$$SLACK_OAUTH_TOKEN \
+		--set snow.basic_auth_username=$$SNOW_BASIC_AUTH_USERNAME \
+		--set snow.basic_auth_password=$$SNOW_BASIC_AUTH_PASSWORD \
+		--set snow.url=$$SNOW_URL

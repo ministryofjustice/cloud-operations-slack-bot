@@ -53,6 +53,21 @@ spec:
                 secretKeyRef:
                   name: cloudopsbot-app-secrets
                   key: slack_oauth_token
+            - name: SNOW_BASIC_AUTH_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: cloudopsbot-app-secrets
+                  key: snow_basic_auth_username
+            - name: SNOW_BASIC_AUTH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cloudopsbot-app-secrets
+                  key: snow_basic_auth_password
+            - name: SNOW_URL
+              valueFrom:
+                secretKeyRef:
+                  name: cloudopsbot-app-secrets
+                  key: snow_url 
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
